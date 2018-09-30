@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Page Title</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+	<script type="javascript" src="script.js"></script>
+</head>
+<body>
+	<svg onmousedown="evt.stopPropagation()">
+		<path d="M30 60 C60 30, 90 30, 120 60" />
+		<g id="gridlines" />
+		<text id="coords" x="10" y="20"></text>
+		<circle id="origin" cx="30" cy="60" r="7" onmousedown="movePointInit(evt)" />
+		<circle cx="60" cy="30" r="7" onmousedown="movePointInit(evt)" />
+		<circle cx="90" cy="30" r="7" onmousedown="movePointInit(evt)" />
+		<circle cx="120" cy="60" r="7" onmousedown="movePointInit(evt)" />
+	</svg>
+</body>
+</html>

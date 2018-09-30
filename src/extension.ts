@@ -17,9 +17,9 @@ const styleElementOriginal = "<link rel=\"stylesheet\" type=\"text/css\" media=\
 export function activate(context: ExtensionContext) {
 	let disposable = commands.registerCommand("splineEditor.launch", () => {
 		const panel = window.createWebviewPanel("splineEditor", "Spline Editor", ViewColumn.Active, { enableScripts: true });
-		const scriptText = fs.readFileSync(path.join(__dirname, "script.js")).toString("utf8");
-		const styleText = fs.readFileSync(path.join(__dirname, "style.css")).toString("utf8");
-		fs.readFile(path.join(__dirname, "index.html"), (error, content) => {
+		const scriptText = fs.readFileSync(path.join(context.extensionPath, "resources", "script.js")).toString("utf8");
+		const styleText = fs.readFileSync(path.join(context.extensionPath, "resources", "style.css")).toString("utf8");
+		fs.readFile(path.join(context.extensionPath, "resources", "index.html"), (error, content) => {
 			var s = content.toString("utf8");
 			s = s.replace(jsElementOriginal, "<script>" + scriptText + "</script>");
 			s = s.replace(styleElementOriginal, "<style>" + styleText + "</style>");
