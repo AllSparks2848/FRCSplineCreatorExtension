@@ -7,7 +7,7 @@ body {
 }
 
 circle {
-	fill: #000;
+	fill: var(--vscode-editor-foreground);
 }
 
 circle:hover {
@@ -18,25 +18,30 @@ circle:active {
 	cursor: -webkit-grabbing;
 }
 
-path, line {
-	stroke: #000;
+path {
+	stroke: var(--vscode-focusBorder);
+	stroke-width: 6px;
+	fill: transparent;
+}
+
+line {
+	stroke: var(--vscode-editor-foreground);
 	fill: transparent;
 }
 
 svg {
-	background-color: #ffa;
-	width: 100%;
-	height: 100%;
-}
-
-filter {
+	background-color: var(--vscode-editor-background);
 	width: 100%;
 	height: 100%;
 }
 
 text {
 	user-select: none;
+	fill: var(--vscode-editor-foreground);
+	stroke: var(--vscode-editor-background);
 	cursor: default;
+	stroke-width: 0.5px;
+	font-family: "Arial Rounded MT";
 }
 
 line.thicc {

@@ -1,5 +1,6 @@
 var px, py, ox, oy, selectedElement, textElement, originElement;
 const gridlineSpacing = 40;
+const vscode = acquireVsCodeApi();
 
 function updateGrid()
 {
@@ -7,9 +8,9 @@ function updateGrid()
 		originY = parseInt(originElement.getAttribute("cy"));
 	var linesX = document.querySelectorAll("line#x-line");
 	var negLines = 1;
-	for(var i = 0; i < linesX.length; i++) {
+	for (var i = 0; i < linesX.length; i++) {
 		var pos = originX + gridlineSpacing * i;
-		if(pos >= document.body.clientWidth) {
+		if (pos >= document.body.clientWidth) {
 			pos = originX - negLines * gridlineSpacing;
 			negLines++;
 		}
@@ -18,9 +19,9 @@ function updateGrid()
 	}
 	negLines = 1;
 	var linesY = document.querySelectorAll("line#y-line");
-	for(var i = 0; i < linesY.length; i++) {
+	for (var i = 0; i < linesY.length; i++) {
 		var pos = originY + gridlineSpacing * i;
-		if(pos >= document.body.clientHeight) {
+		if (pos >= document.body.clientHeight) {
 			pos = originY - negLines * gridlineSpacing;
 			negLines++;
 		}
@@ -72,49 +73,51 @@ function movePointPost()
 	document.onmousemove = document.onmouseup = selectedElement = null;
 }
 
-function getPoints() {
-	var c = document.querySelectorAll("circle");
-	var s = "";
-	for(var i = 0; i < 4; i++)
-		s += ((c[i].getAttribute("cx") - originElement.getAttribute("cx")) / gridlineSpacing) + ", ";
-	for(var i = 0; i < 4; i++) {
-		s += (-(c[i].getAttribute("cy") - originElement.getAttribute("cy")) / gridlineSpacing);
-		if(i < 3) s += ", ";
-	}
-	return s;
-}
-
-function initGridLines() {
+function initGridLines()
+{
 	var group = document.querySelector("g#gridlines");
 	group.innerHTML = "";
-	for(var i = 0; i < document.body.clientWidth; i += gridlineSpacing) {
+	for (var i = 0; i < document.body.clientWidth; i += gridlineSpacing) {
 		var child = document.createElementNS("http://www.w3.org/2000/svg", "line");
 		child.setAttribute("x1", i);
 		child.setAttribute("x2", i);
 		child.setAttribute("y1", "0%");
 		child.setAttribute("y2", "100%");
 		child.id = "x-line";
-		if(i == 0) child.classList += "thicc";
+		if (i == 0) child.classList += "thicc";
 		group.appendChild(child);
 	}
 
-	for(var i = 0; i < document.body.clientHeight; i += gridlineSpacing) {
+	for (var i = 0; i < document.body.clientHeight; i += gridlineSpacing) {
 		var child = document.createElementNS("http://www.w3.org/2000/svg", "line");
 		child.setAttribute("x1", "0%");
 		child.setAttribute("x2", "100%");
 		child.setAttribute("y1", i);
 		child.setAttribute("y2", i);
 		child.id = "y-line";
-		if(i == 0) child.classList += "thicc";
+		if (i == 0) child.classList += "thicc";
 		group.appendChild(child);
 	}
 	updateGrid();
 }
 
-window.onload = function() {
+window.onload = () =>
+{
 	textElement = document.querySelector("text#coords");
 	originElement = document.querySelector("circle#origin")
 	initGridLines();
 }
 
 window.onresize = initGridLines;
+
+window.onmessage = (e) =>
+{
+	var c = document.querySelectorAll("circle");
+	var pointArray = [];
+	for (var i = 0; i < c.length; i++) {
+		pointArray.push((c[i].getAttribute("cx") - originElement.getAttribute("cx")) / gridlineSpacing);
+		pointArray.push(-(c[i].getAttribute("cy") - originElement.getAttribute("cy")) / gridlineSpacing);
+	}
+	vscode.postMessage({points: pointArray});
+}
+

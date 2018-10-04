@@ -2,7 +2,7 @@
 	"name": "frcsplinecreatorextension",
 	"displayName": "FRC Spline Creator Extension",
 	"description": "Graphical spline creator for FRC team 2848",
-	"version": "0.9.3",
+	"version": "0.9.4",
 	"publisher": "QJjs",
 	"engines": {
 		"vscode": "^1.27.0"
@@ -25,7 +25,11 @@
 		"commands": [
 			{
 				"command": "splineEditor.launch",
-				"title": "Launch Spline Editor"
+				"title": "Spline Editor: Launch"
+			},
+			{
+				"command": "splineEditor.export.xml",
+				"title": "Spline Editor: Export as XML"
 			}
 		]
 	},
