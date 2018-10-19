@@ -2,34 +2,39 @@
 
 Graphical spline creator for FRC team 2848
 
+![](images/01.gif)
+
+## How to use
+
+### General
+* `Click + Drag` to move any point around
+* `Shift + Left-Click` to place new anchor point
+* `Shift + Right-Click` to remove point
+
+![](images/02.gif)
+
+### Control Point
+
+* `Shift + Click + Drag` to only change length of selected point
+
+![](images/03.gif)
+
+### Origin Point
+
+* `Click + Drag` to pan across entire scene
+* `Shift + Click + Drag` to move origin independently
+
+![](images/04.gif)
+
 ## Commands
 
 * `Spline Editor: Launch`
 * `Spline Editor: Export as XML`
 
-## Changelog
+## Changes
 
-### 0.9.1
+Please see [CHANGELOG.md](CHANGELOG.md)
 
-* First working version!
+## Planned Features
 
-### 0.9.2
-
-* Fixed README
-* Built first package
-* Added repo to `package.json`
-
-### 0.9.3
-
-* Deleted CHANGELOG.&#8203;md (unnecessary)
-* Moved `index.html`, `style.css`, and `script.js` to new `/resources` folder (`/out` was excluded because of `.gitignore`)
-
-### 0.9.4
-
-* Now uses theme-derived colors to blend in with the rest of the window!
-* Added XML export functionality
-
-### Planned
-
-* Multiple Splines
-* Map/Obstacles
+* Field Map + Obstacles

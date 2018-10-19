@@ -29,6 +29,10 @@ line {
 	fill: transparent;
 }
 
+#pairlines > line {
+	stroke-width: 3px;
+}
+
 svg {
 	background-color: var(--vscode-editor-background);
 	width: 100%;
@@ -40,8 +44,9 @@ text {
 	fill: var(--vscode-editor-foreground);
 	stroke: var(--vscode-editor-background);
 	cursor: default;
-	stroke-width: 0.5px;
+	stroke-width: 1px;
 	font-family: "Arial Rounded MT";
+	font-size: 15pt;
 }
 
 line.thicc {

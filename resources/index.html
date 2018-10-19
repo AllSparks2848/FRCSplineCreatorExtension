@@ -6,17 +6,35 @@
 	<title>Page Title</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-	<script type="javascript" src="script.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 </head>
-<body>
-	<svg onmousedown="evt.stopPropagation()">
-		<path d="M30 60 C60 30, 90 30, 120 60" />
+<body onmousedown="mouseDownHandle(event)">
+	<svg>
 		<g id="gridlines" />
-		<text id="coords" x="10" y="20"></text>
-		<circle id="origin" cx="30" cy="60" r="7" onmousedown="movePointInit(evt)" />
-		<circle cx="60" cy="30" r="7" onmousedown="movePointInit(evt)" />
-		<circle cx="90" cy="30" r="7" onmousedown="movePointInit(evt)" />
-		<circle cx="120" cy="60" r="7" onmousedown="movePointInit(evt)" />
+		<g id="pairlines" />
+		<g id="paths">
+			<path d="M30 60 C60 30, 90 30, 120 60" />
+			<path d="M120 60 C150 90, 180 90, 210 60" />
+			<path d="M210 60 C240 30, 270 30, 300 60" />
+		</g>
+		
+		<circle id="anchor-0" class="movable anchor" cx="30" cy="60" r="7" />
+
+		<circle id="control-0b" class="movable control" cx="60" cy="30" r="7" />
+		<circle id="control-1a" class="movable control" cx="90" cy="30" r="7" />
+
+		<circle id="anchor-1" class="movable anchor" cx="120" cy="60" r="7" />
+
+		<circle id="control-1b" class="movable control" cx="150" cy="90" r="7" />
+		<circle id="control-2a" class="movable control" cx="180" cy="90" r="7" />
+
+		<circle id="anchor-2" class="movable anchor" cx="210" cy="60" r="7" />
+
+		<circle id="control-2b" class="movable control" cx="240" cy="30" r="7" />
+		<circle id="control-3a" class="movable control" cx="270" cy="30" r="7" />
+
+		<circle id="anchor-3" class="movable anchor" cx="300" cy="60" r="7" />
+		<text id="coords" x="0" y="0"></text>
 	</svg>
 </body>
 </html>

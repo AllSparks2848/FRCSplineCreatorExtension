@@ -6,7 +6,7 @@ export class XMLBuilder
 
 	constructor(version = "1.0", encoding = "utf-8")
 	{
-		this.document = `<?xml version=\"${version}\" encoding=\"${encoding}\"?>\n\n<data>\n</data>`;
+		this.document = `<?xml version=\"${version}\" encoding=\"${encoding}\"?>\n\n<spline>\n</spline>`;
 	}
 
 	private startIndexOf(searchString: string): number
@@ -30,9 +30,9 @@ export class XMLBuilder
 
 	addSpline(x1: string, y1: string, x2: string, y2: string, x3: string, y3: string, x4: string, y4: string): void
 	{
-		var insertIndex = Math.max(this.startIndexOf("data"), this.endIndexOf("spline"), 0);
+		var insertIndex = Math.max(this.startIndexOf("spline"), this.endIndexOf("curve"), 0);
 		var splineInfo = `
-	<spline>
+	<curve>
 		<anchor-point>
 			<x>${x1}</x>
 			<y>${y1}</y>
@@ -49,7 +49,7 @@ export class XMLBuilder
 			<x>${x4}</x>
 			<y>${y4}</y>
 		</anchor-point>
-	</spline>`;
+	</curve>`;
 		this.document = this.insert(this.document, splineInfo, insertIndex);
 	}
 }

@@ -16,7 +16,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { XMLBuilder } from './xmlbuilder'
 
-const jsElementOriginal = "<script type=\"javascript\" src=\"script.js\"></script>";
+const jsElementOriginal = "<script type=\"text/javascript\" src=\"script.js\"></script>";
 const styleElementOriginal = "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"style.css\" />";
 
 let panel: WebviewPanel | undefined;
@@ -54,16 +54,25 @@ export function activate(context: ExtensionContext)
 			if (!panel) {
 				window.showErrorMessage("Must open the spline editor to export!");
 				return;
-			} else{
+			} else {
 				panel.webview.postMessage({ command: "ping" });
 				panel.webview.onDidReceiveMessage((message) => {
 					var pointArray: Array<string> = message.points;
+					for (var s in pointArray) {
+						var result = s.match(/-?\d+(\.\d\d?)?/g);
+						if (result) s = result[0];
+					}
 					var xml = new XMLBuilder();
-					xml.addSpline(pointArray[0], pointArray[1],
-						pointArray[2], pointArray[3],
-						pointArray[4], pointArray[5],
-						pointArray[6], pointArray[7]);
-					workspace.openTextDocument({language: "xml"}).then(doc => {
+
+					for (var i = 0; i < pointArray.length - 6; i += 6) {
+						xml.addSpline(
+							pointArray[i], pointArray[i + 1],
+							pointArray[i + 2], pointArray[i + 3],
+							pointArray[i + 4], pointArray[i + 5],
+							pointArray[i + 6], pointArray[i + 7]
+						);
+					}
+					workspace.openTextDocument({ language: "xml" }).then(doc => {
 						window.showTextDocument(doc);
 						let edit = new WorkspaceEdit();
 							
