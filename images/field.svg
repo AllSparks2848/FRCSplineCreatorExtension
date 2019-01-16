@@ -1,0 +1,25 @@
+<svg id="bg">
+<g stroke-width=".2"
+	fill-opacity="0.8"
+	stroke-opacity="1.0">
+	<g fill="#454545" stroke="#777777">
+		<rect x="0" y="0" width="10" height="30" />
+		<rect x="10" y="1.5" width="54" height="27" />
+		<rect x="64" y="0" width="10" height="30" />
+	</g>
+	<g fill="#c44" stroke="#e34">
+		<rect x="10" y="calc(29/3)" width="4" height="calc(10/3)" />
+		<rect x="10" y="13" width="4" height="4" />
+		<rect x="10" y="17" width="4" height="calc(10/3)" />
+		<rect x="14" y="calc(29/3)" width="3" height="calc(32/3)">
+	</g>
+
+	<g fill="#4bf" stroke="#11e">
+		<rect x="60" y="calc(29/3)" width="4" height="calc(10/3)" />
+		<rect x="60" y="13" width="4" height="4" />
+		<rect x="60" y="17" width="4" height="calc(10/3)" />
+		<rect x="60" y="17" width="4" height="calc(10/3)" />
+		<rect x="57" y="calc(29/3)" width="3" height="calc(32/3)">
+	</g>
+</g>
+</svg>

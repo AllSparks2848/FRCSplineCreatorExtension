@@ -39,6 +39,10 @@ svg {
 	height: 100%;
 }
 
+g {
+	transform-origin: center center;
+}
+
 text {
 	user-select: none;
 	fill: var(--vscode-editor-foreground);

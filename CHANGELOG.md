@@ -28,3 +28,8 @@
 * Added controls for creating and removing points
 * Added *"pairlines"* connecting control points to belonging anchor points
 * Improved naming scheme in XML exported files
+
+## 0.9.6
+
+* Added background field view
+* Added ability to copy data to clipboard

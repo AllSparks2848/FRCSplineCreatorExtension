@@ -27,6 +27,12 @@ var textElement;
 var originElement;
 
 /**
+ * Field image behind spline
+ * @type {SVGElement}
+ */
+var background;
+
+/**
  * Screen space (pixels) to real space (feet)
  */
 const gridlineSpacing = 40;
@@ -35,6 +41,48 @@ const gridlineSpacing = 40;
  * Used for getTextWidth()
  */
 var canvas = document.createElement("canvas"), context = canvas.getContext("2d");
+
+/**
+ * Currect background position
+ */
+var bgX = 500, bgY = -200;
+
+/**
+ * Tells if background is moving or not
+ */
+var bgMoving = false;
+
+/**
+ * 
+ * @param {MouseEvent} e
+ */
+function updateBackgroundInit(e)
+{
+	ox = bgX - e.clientX;
+	oy = bgY - e.clientY;
+	document.onmousemove = updateBackground;
+	document.onmouseup = updateBackgroundPost;
+}
+
+/**
+ * 
+ * @param {MouseEvent} e
+ */
+function updateBackground(e)
+{
+	console.log(`translate(${ox + e.clientX} ${oy + e.clientY}) rotate(90) scale("${gridlineSpacing})`);
+	background.querySelector("g").setAttribute("transform", `translate(${ox + e.clientX} ${oy + e.clientY}) rotate(90) scale(${gridlineSpacing})`);
+}
+
+/**
+ * 
+ * @param {MouseEvent} e
+ */
+function updateBackgroundPost(e) {
+	bgX = ox + e.clientX;
+	bgY = oy + e.clientY;
+	document.onmousemove =	document.onmouseup = undefined;
+}
 
 /**
  * Position SVG text element and set inner text
@@ -58,7 +106,7 @@ function updateCoords(e)
  * @returns {number}
  */
 function getTextWidth(text)
-{   
+{
     context.font = "15pt Arial Rounded MT";
     var metrics = context.measureText(text);
     return metrics.width;
@@ -92,7 +140,7 @@ function getBelongingAnchor(control)
 
 /**
  * Redirects different mouseDown inputs to different functions
- * @param {MouseEvent} e 
+ * @param {MouseEvent} e
  */
 function mouseDownHandle(e)
 {
@@ -100,7 +148,18 @@ function mouseDownHandle(e)
 	else if (e.shiftKey) {
 		if (e.button == 0) addPoint(e);
 		if (e.button == 2) removePoint(e);
-	}
+	} else updateBackgroundInit(e);
+}
+
+/**
+ * Redirects different key presses to different functions
+ * @param {KeyboardEvent} e
+ */
+
+function keyPressHandle(e)
+{
+	console.log(e.key);
+	if (e.key == '-' || e.key == '_') removePoint();
 }
 
 /**
@@ -246,7 +305,7 @@ function movePoint(e)
  */
 function movePointPost()
 {
-	document.onmousemove = document.onmouseup = selectedElement = null;
+	document.onmousemove = document.onmouseup = selectedElement = undefined;
 	textElement.setAttribute("display", "none");
 }
 
@@ -255,7 +314,7 @@ function movePointPost()
  * @param {MouseEvent} e 
  */
 function addPoint(e)
-{	
+{
 	var maxIndex = textElement.previousElementSibling.id.match(/\d+/g)[0];
 	var prevAnchor = textElement.previousElementSibling;
 	var prevControl = prevAnchor.previousElementSibling;
@@ -292,7 +351,7 @@ function addPoint(e)
 
 /**
  * Removes the last anchor point and other unnecessary control points
- * @param {MouseEvent} e 
+ * @param {MouseEvent} e
  */
 function removePoint(e)
 {
@@ -443,8 +502,10 @@ window.onload = () =>
 {
 	textElement = document.querySelector("#coords");
 	originElement = document.querySelector("#anchor-0.movable");
+	background = document.querySelector("#bg");
 	initGridLines();
 	updatePairlines();
+	background.querySelector("g").setAttribute("transform", `translate(${bgX} ${bgY}) rotate(90) scale(${gridlineSpacing})`);
 }
 
 window.onresize = initGridLines;
