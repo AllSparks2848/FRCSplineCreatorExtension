@@ -33,3 +33,7 @@
 
 * Added background field view
 * Added ability to copy data to clipboard
+
+## 0.9.7
+
+* Rewrote Javascript portion of website

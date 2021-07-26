@@ -1,25 +1,84 @@
-<svg id="bg">
-<g stroke-width=".2"
+<svg id="bg" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<g stroke-width="0.2"
 	fill-opacity="0.8"
-	stroke-opacity="1.0">
+	stroke-opacity="1.0"
+	stroke-linejoin="round" transform="scale(1)">
+
 	<g fill="#454545" stroke="#777777">
+		<!-- Field -->
 		<rect x="0" y="0" width="10" height="30" />
 		<rect x="10" y="1.5" width="54" height="27" />
 		<rect x="64" y="0" width="10" height="30" />
 	</g>
+
 	<g fill="#c44" stroke="#e34">
+		<!-- Red Platform -->
 		<rect x="10" y="calc(29/3)" width="4" height="calc(10/3)" />
 		<rect x="10" y="13" width="4" height="4" />
 		<rect x="10" y="17" width="4" height="calc(10/3)" />
-		<rect x="14" y="calc(29/3)" width="3" height="calc(32/3)">
+		<rect x="14" y="calc(29/3)" width="3" height="calc(32/3)" />
+		<polygon points="
+			14,9.6666
+			14,8.7083
+			17.8333,8.7083
+			17,9.6666" />
+		<polygon points="
+			17.8333,8.7083
+			17,9.666
+			17,20.3333
+			17.8333,21.2583" />
+		<polygon points="
+			14,20.3333
+			14,21.2583,
+			17.8333,21.2583
+			17,20.3333" />
+
+		<!-- Red Rocket Top -->
+		<polygon points="
+			26.7608,1.5
+			26.7608,2.1666
+			28.0108,4.1666
+			30.1775,4.1666
+			31.4275,2.1666
+			31.4275,1.5" />
+
+		<!-- Red Rocket Bottom -->
+		<polygon points="
+			26.7608,28.5
+			26.7608,27.8333
+			28.0108,25.8333
+			30.1775,25.8333
+			31.4275,27.8333
+			31.4275,28.5" />
 	</g>
 
 	<g fill="#4bf" stroke="#11e">
+
+		<!-- Blue Platform -->
 		<rect x="60" y="calc(29/3)" width="4" height="calc(10/3)" />
 		<rect x="60" y="13" width="4" height="4" />
 		<rect x="60" y="17" width="4" height="calc(10/3)" />
 		<rect x="60" y="17" width="4" height="calc(10/3)" />
-		<rect x="57" y="calc(29/3)" width="3" height="calc(32/3)">
+		<rect x="57" y="calc(29/3)" width="3" height="calc(32/3)" />
+		<polygon points="
+			60,9.6666
+			60,8.7083
+			56.1666,8.7083
+			57,9.6666" />
+		<polygon points="
+			56.1666,8.7083
+			57,9.6666
+			57,20.3333
+			56.1666,21.2583" />
+		<polygon points="
+			60,20.3333
+			60,21.2583,
+			56.1666,21.2583
+			57,20.3333" />
+
+		<!-- Blue Rocket Top -->
+
+		<!-- Blue Rocket Bottom -->
 	</g>
 </g>
 </svg>

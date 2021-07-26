@@ -70,8 +70,8 @@ function updateBackgroundInit(e)
  */
 function updateBackground(e)
 {
-	console.log(`translate(${ox + e.clientX} ${oy + e.clientY}) rotate(90) scale("${gridlineSpacing})`);
-	background.querySelector("g").setAttribute("transform", `translate(${ox + e.clientX} ${oy + e.clientY}) rotate(90) scale(${gridlineSpacing})`);
+	console.log(`translate(${ox + e.clientX} ${oy + e.clientY}) rotate(-90) scale("${gridlineSpacing})`);
+	background.querySelector("g").setAttribute("transform", `translate(${ox + e.clientX} ${oy + e.clientY}) rotate(-90) scale(${gridlineSpacing})`);
 }
 
 /**
@@ -175,26 +175,16 @@ function movePointInit(e)
 	ox = e.clientX - selectedElement.getAttribute("cx");
 	oy = e.clientY - selectedElement.getAttribute("cy");
 	if (selectedElement.classList.contains("anchor")) {
-		if (selectedElement.id === "anchor-0") {
-			var c = document.querySelectorAll(".movable");
-			for (var i = 0; i < c.length; i++) {
-				c[i].setAttribute("px", c[i].getAttribute("cx"));
-				c[i].setAttribute("py", c[i].getAttribute("cy"));
-				c[i].setAttribute("ox", e.clientX - c[i].getAttribute("cx"));
-				c[i].setAttribute("oy", e.clientY - c[i].getAttribute("cy"));
-			}
-		} else {
-			var index = selectedElement.id.match(/\d+/g);
-			var controlA = document.querySelector("#control-" + index + "a");
-			if (controlA) {
-				controlA.setAttribute("ox", e.clientX - controlA.getAttribute("cx"));
-				controlA.setAttribute("oy", e.clientY - controlA.getAttribute("cy"));
-			}
-			var controlB = document.querySelector("#control-" + index + "b");
-			if (controlB) {
-				controlB.setAttribute("ox", e.clientX - controlB.getAttribute("cx"));
-				controlB.setAttribute("oy", e.clientY - controlB.getAttribute("cy"));
-			}
+		var index = selectedElement.id.match(/\d+/g);
+		var controlA = document.querySelector("#control-" + index + "a");
+		if (controlA) {
+			controlA.setAttribute("ox", e.clientX - controlA.getAttribute("cx"));
+			controlA.setAttribute("oy", e.clientY - controlA.getAttribute("cy"));
+		}
+		var controlB = document.querySelector("#control-" + index + "b");
+		if (controlB) {
+			controlB.setAttribute("ox", e.clientX - controlB.getAttribute("cx"));
+			controlB.setAttribute("oy", e.clientY - controlB.getAttribute("cy"));
 		}
 	} else if (selectedElement.classList.contains("control")) {
 		var anchor = getBelongingAnchor(selectedElement);
@@ -216,6 +206,14 @@ function movePointInit(e)
 				));
 			}
 		}
+	// } else if (selectedElement.id == "origin") {
+	// 	var c = document.querySelectorAll(".movable");
+	// 	for (var i = 0; i < c.length; i++) {
+	// 		c[i].setAttribute("px", c[i].getAttribute("cx"));
+	// 		c[i].setAttribute("py", c[i].getAttribute("cy"));
+	// 		c[i].setAttribute("ox", e.clientX - c[i].getAttribute("cx"));
+	// 		c[i].setAttribute("oy", e.clientY - c[i].getAttribute("cy"));
+	// 	}
 	}
 	textElement.removeAttribute("display");
 }
@@ -230,33 +228,16 @@ function movePoint(e)
 	selectedElement.setAttribute("cy", e.clientY - ox);
 	
 	if (selectedElement.classList.contains("anchor")) {
-		if (selectedElement.id === "anchor-0") {
-			var c = document.querySelectorAll(".movable");
-			if (e.shiftKey) {
-				for (var i = 0; i < c.length; i++) {
-					if (c[i].id === "anchor-0") continue;
-					c[i].setAttribute("cx", c[i].getAttribute("px"));
-					c[i].setAttribute("cy", c[i].getAttribute("py"));
-				}
-			} else {
-				for (var i = 0; i < c.length; i++) {
-					if (c[i].id === "anchor-0") continue;
-					c[i].setAttribute("cx", e.clientX - c[i].getAttribute("ox"));
-					c[i].setAttribute("cy", e.clientY - c[i].getAttribute("oy"));
-				}
-			}
-		} else {
-			var index = selectedElement.id.match(/\d+/g);
-			var controlA = document.querySelector("#control-" + index + "a");
-			if (controlA) {
-				controlA.setAttribute("cx", e.clientX - controlA.getAttribute("ox"));
-				controlA.setAttribute("cy", e.clientY - controlA.getAttribute("oy"));
-			}
-			var controlB = document.querySelector("#control-" + index + "b");
-			if (controlB) {
-				controlB.setAttribute("cx", e.clientX - controlB.getAttribute("ox"));
-				controlB.setAttribute("cy", e.clientY - controlB.getAttribute("oy"));
-			}
+		var index = selectedElement.id.match(/\d+/g);
+		var controlA = document.querySelector("#control-" + index + "a");
+		if (controlA) {
+			controlA.setAttribute("cx", e.clientX - controlA.getAttribute("ox"));
+			controlA.setAttribute("cy", e.clientY - controlA.getAttribute("oy"));
+		}
+		var controlB = document.querySelector("#control-" + index + "b");
+		if (controlB) {
+			controlB.setAttribute("cx", e.clientX - controlB.getAttribute("ox"));
+			controlB.setAttribute("cy", e.clientY - controlB.getAttribute("oy"));
 		}
 	} else if (selectedElement.classList.contains("control")) {
 		var anchor = getBelongingAnchor(selectedElement);
@@ -293,6 +274,21 @@ function movePoint(e)
 				opposite.setAttribute("cy", y);
 			}
 		}
+	// } else if (selectedElement.id == "origin") {
+	// 	var c = document.querySelectorAll(".movable");
+	// 	if (e.shiftKey) {
+	// 		for (var i = 0; i < c.length; i++) {
+	// 			if (c[i].id === "origin") continue;
+	// 			c[i].setAttribute("cx", c[i].getAttribute("px"));
+	// 			c[i].setAttribute("cy", c[i].getAttribute("py"));
+	// 		}
+	// 	} else {
+	// 		for (var i = 0; i < c.length; i++) {
+	// 			if (c[i].id === "origin") continue;
+	// 			c[i].setAttribute("cx", e.clientX - c[i].getAttribute("ox"));
+	// 			c[i].setAttribute("cy", e.clientY - c[i].getAttribute("oy"));
+	// 		}
+	// 	}
 	}
 	updatePaths();
 	updatePairlines();
@@ -501,11 +497,11 @@ function updatePairlines()
 window.onload = () =>
 {
 	textElement = document.querySelector("#coords");
-	originElement = document.querySelector("#anchor-0.movable");
+	originElement = document.querySelector("#origin");
 	background = document.querySelector("#bg");
 	initGridLines();
 	updatePairlines();
-	background.querySelector("g").setAttribute("transform", `translate(${bgX} ${bgY}) rotate(90) scale(${gridlineSpacing})`);
+	background.querySelector("g").setAttribute("transform", `translate(${bgX} ${bgY}) rotate(-90) scale(${gridlineSpacing})`);
 }
 
 window.onresize = initGridLines;
@@ -521,6 +517,7 @@ window.onmessage = () =>
 	var c = document.querySelectorAll(".movable");
 	var pointArray = new Array();
 	for (var i = 0; i < c.length; i++) {
+		if (c[i].id == "origin") continue;
 		pointArray.push((c[i].getAttribute("cx") - originElement.getAttribute("cx")) / gridlineSpacing);
 		pointArray.push(-(c[i].getAttribute("cy") - originElement.getAttribute("cy")) / gridlineSpacing);
 	}

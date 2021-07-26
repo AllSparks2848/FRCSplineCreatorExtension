@@ -9,7 +9,8 @@ import {
 	ExtensionContext,
 	ViewColumn,
 	Uri,
-	WorkspaceEdit
+	WorkspaceEdit,
+	QuickPickItem
 } from 'vscode';
 
 import * as path from 'path';
@@ -23,6 +24,26 @@ const IMG_ELEMENT = "<img>";
 
 let panel: WebviewPanel | undefined;
 
+
+
+let items: Array<QuickPickItem> = [
+	{
+		description: "description1",
+		detail: "detail1",
+		label: "label1"
+	},
+	{
+		description: "description2",
+		detail: "detail2",
+		label: "label2"
+	},
+	{
+		description: "description3",
+		detail: "detail3",
+		label: "label3"
+	}
+];
+
 //* First function to be activated
 export function activate(context: ExtensionContext)
 {
@@ -33,7 +54,7 @@ export function activate(context: ExtensionContext)
 				panel.reveal();
 				return;
 			}
-			
+
 			panel = window.createWebviewPanel("splineEditor", "Spline Editor", ViewColumn.Active, {
 				enableScripts: true, retainContextWhenHidden: true, localResourceRoots: [
 					Uri.file(path.join(context.extensionPath, "resources"))
@@ -48,7 +69,7 @@ export function activate(context: ExtensionContext)
 				s = s.replace(JS_ELEMENT, "<script>" + scriptText + "</script>");
 				s = s.replace(STYLE_ELEMENT, "<style>" + styleText + "</style>");
 				s = s.replace(IMG_ELEMENT, fs.readFileSync(path.join(context.extensionPath, "images", "field.svg")).toString("utf8"));
-				
+
 				if (panel) panel.webview.html = s;
 			});
 			panel.onDidDispose(() => { panel = undefined; }, undefined, context.subscriptions);
@@ -78,7 +99,7 @@ export function activate(context: ExtensionContext)
 				workspace.openTextDocument({ language: "xml" }).then(doc => {
 					window.showTextDocument(doc);
 					let edit = new WorkspaceEdit();
-						
+
 					edit.insert(doc.uri, doc.lineAt(0).range.start, xml.document);
 					workspace.applyEdit(edit);
 				});
@@ -89,11 +110,17 @@ export function activate(context: ExtensionContext)
 				window.showErrorMessage("Must open the spline editor to export!");
 				return;
 			}
-			
-			panel.webview.postMessage({ command: "ping" });
+
+			let input = window.createQuickPick<QuickPickItem>();
+			input.items = items;
+			input.title = "Select Export Format";
+			input.show();
+
+			/*panel.webview.postMessage({ command: "ping" });
 			panel.webview.onDidReceiveMessage((message) => {
+
 				var orderedPoints = new Array<string>();
-				
+
 				for(var i = 0; i < message.points.length; i += 2)
 					orderedPoints.push(message.points[i]);
 
@@ -108,14 +135,13 @@ export function activate(context: ExtensionContext)
 					case "darwin": //OS X copy
 						child_process.spawn('pbcopy').stdin.end(data);
 						break;
-					case "linux"://Linux copy
+					case "linux": //Linux copy
 						child_process.spawn('xclip').stdin.end(data);
 						break;
 				}
 
 				window.showInformationMessage("Successfully copied to clipboard!", data);
-			});
-			
+			});*/
 		})
 	);
 	context.subscriptions.push(disposable);

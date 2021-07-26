@@ -1,8 +1,8 @@
 {
 	"name": "frcsplinecreatorextension",
 	"displayName": "FRC Spline Creator Extension",
-	"description": "Graphical spline creator for FRC team 2848",
-	"version": "0.9.6",
+	"description": "Graphical spline creator for FRC teams 2848 and 2714",
+	"version": "0.9.7",
 	"publisher": "QJjs",
 	"engines": {
 		"vscode": "^1.28.1"
@@ -12,10 +12,10 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/AllSparks2848/FRCSplineCreatorExtension"
+		"url": "https://github.com/FRC2714/FRCSplineCreatorExtension"
 	},
 	"bugs": {
-		"url": "https://github.com/AllSparks2848/FRCSplineCreatorExtension/issues"
+		"url": "https://github.com/FRC2714/FRCSplineCreatorExtension/issues"
 	},
 	"activationEvents": [
 		"onCommand:splineEditor.launch"
